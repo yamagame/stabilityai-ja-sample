@@ -1,0 +1,8 @@
+.vscode
+.DS_Store
+.venv
+
+/work/*
+!/work/.gitkeep
+.env
+
