@@ -4,6 +4,8 @@ M1 Mac で動作確認。CPU モードなため、出力まで3〜5分程度か�
 
 ## 実行例
 
+以下はBaseモデルの例。
+
 ```
 $ PYTHON_LOG_LEVEL=debug python main.py
 2023-08-12 09:12:46,807 - INFO:__main__ - start
