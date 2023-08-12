@@ -1,6 +1,17 @@
 # Japanese StableLM Alpha サンプル
 
-M1 Mac で動作確認。
+「[日本語言語モデル「Japanese StableLM Alpha」をリリースしました](https://ja.stability.ai/blog/japanese-stablelm-alpha)」のサンプルコード。M1 Mac (CPUモード)で動作確認。
+メモリを26ギガバイト強消費。
+
+- [Japanese StableLM Base Alpha 7B](https://huggingface.co/stabilityai/japanese-stablelm-base-alpha-7b)
+
+  Japanese StableLM Base Alpha 7Bは商用利用可能なApache License 2.0での公開。
+
+- [Japanese StableLM Instruct Alpha 7B](https://huggingface.co/stabilityai/japanese-stablelm-instruct-alpha-7b)
+
+  Japanese StableLM Instruct Alpha 7Bは研究目的で作成されたモデルであり、研究目的での利用に限定した公開
+
+詳細は Hugging Face Hub のページを参照。
 
 ## 実行例
 
@@ -60,6 +71,7 @@ $ brew install scipy
 ```
 
 ```sh
-# データセットのサイズが50Gバイトと大きいため、初回ダウンロードは数時間かかる。
+# データセットのサイズがおよそ50ギガバイトと大きいため、初回ダウンロードは数時間かかる。
+# ストレージの空き容量にも注意。
 $ ./scripts/start.sh
 ```
