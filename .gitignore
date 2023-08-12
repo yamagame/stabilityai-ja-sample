@@ -5,4 +5,5 @@
 /work/*
 !/work/.gitkeep
 .env
-
+.mypy_cache
+__pycache__
