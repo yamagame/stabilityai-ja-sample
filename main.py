@@ -1,5 +1,6 @@
 from transformers import AutoModelForCausalLM, LlamaTokenizer, AutoTokenizer
 import torch
+import os
 from logger import getLogger
 from suppress_warning import suppress_warning
 suppress_warning()
@@ -7,6 +8,11 @@ suppress_warning()
 log = getLogger(__name__)
 log.info("start")
 log.info("create tokenizer")
+
+dataset_type = os.environ.get("DATASET_TYPE", "instruct").upper()
+dataset_name = "stabilityai/japanese-stablelm-instruct-alpha-7b"
+if dataset_type == "BASE":
+    dataset_name = "stabilityai/japanese-stablelm-base-alpha-7b"
 
 # tokenizer = AutoTokenizer.from_pretrained(
 #     "novelai/nerdstash-tokenizer-v1",
@@ -21,8 +27,7 @@ tokenizer = LlamaTokenizer.from_pretrained(
 log.info("create model")
 
 model = AutoModelForCausalLM.from_pretrained(
-    # "stabilityai/japanese-stablelm-instruct-alpha-7b",
-    "stabilityai/japanese-stablelm-base-alpha-7b",
+    dataset_name,
     trust_remote_code=True,
 )
 
@@ -50,19 +55,26 @@ def build_prompt(user_query, inputs="", sep="\n\n### "):
     return p
 
 
+def input_prompt(user_query):
+    if dataset_type == "BASE":
+        return user_query
+    else:
+        user_inputs = {
+            "user_query": user_query,
+            "inputs": ""
+        }
+        return build_prompt(**user_inputs)
+
+
 while True:
     ###################################################################################
     # プロンプトの入力
     ###################################################################################
 
-    # user_query = input('>')
-    # user_inputs = {
-    #     "user_query": user_query,
-    #     "inputs": ""
-    # }
-    # prompt = build_prompt(**user_inputs)
-
-    prompt = input('>')
+    user_query = input('>')
+    if user_query == "":
+        break
+    prompt = input_prompt(user_query)
 
     log.info("tokenizer encode")
 
